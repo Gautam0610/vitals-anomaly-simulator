@@ -1,10 +1,17 @@
+# Use a Python base image
 FROM python:3.9-slim-buster
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY src/ .
-COPY .env .
+# Copy the requirements file to the container
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir Faker
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "main.py"]
+# Copy the application code to the container
+COPY . .
+
+# Command to run the application
+CMD ["python", "src/main.py"]
